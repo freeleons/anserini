@@ -23,6 +23,7 @@ import io.anserini.rerank.Reranker;
 import io.anserini.rerank.RerankerContext;
 import io.anserini.rerank.ScoredDocuments;
 import io.anserini.search.SearchCollection;
+import java.security.SecureRandom;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.IOUtils;
@@ -378,7 +379,7 @@ public class AxiomReranker<T> implements Reranker<T> {
           }
         }
       } else {
-        Random random = new Random();
+        Random random = new SecureRandom();
         while (docidSet.size() < targetSize) {
           docidSet.add(random.nextInt(availableDocsCnt));
         }
