@@ -16,6 +16,7 @@
 
 package io.anserini.collection;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
@@ -122,7 +123,7 @@ public class HtmlCollection extends DocumentCollection<HtmlCollection.Document> 
       StringBuilder sb = new StringBuilder();
       try {
         String line;
-        while ((line = bRdr.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
           sb.append(line).append("\n");
         }
         this.raw = sb.toString();

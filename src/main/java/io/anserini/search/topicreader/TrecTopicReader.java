@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -41,7 +42,7 @@ public class TrecTopicReader extends TopicReader<Integer> {
     sb = (sb == null ? new StringBuilder() : sb);
     String sep = (sb == null ? "" : newline);
     while (true) {
-      String line = reader.readLine();
+      String line = BoundedLineReader.readLine(reader, 5_000_000);
       if (line == null) {
         return null;
       }
@@ -96,7 +97,7 @@ public class TrecTopicReader extends TopicReader<Integer> {
         // Read the description...
         sb.setLength(0);
         String line = null;
-        while ((line = bRdr.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
           if (line.startsWith("<narr>"))
             break;
           if (sb.length() > 0) sb.append(' ');
@@ -111,7 +112,7 @@ public class TrecTopicReader extends TopicReader<Integer> {
           sb.append(line);
         } else {
           // Otherwise, read until closing '</top>' tag.
-          while ((line = bRdr.readLine()) != null) {
+          while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
             if (line.startsWith("</top>"))
               break;
             if (sb.length() > 0) sb.append(' ');

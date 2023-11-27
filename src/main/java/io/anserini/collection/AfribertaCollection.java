@@ -18,6 +18,7 @@ package io.anserini.collection;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -104,7 +105,7 @@ public class AfribertaCollection extends DocumentCollection<AfribertaCollection.
       String line;
       try {
         int i = 0;
-        while ((line = reader.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
           String json = "{ \"id\" : \"doc_" + i + "\", \"contents\" : \"" + line.replaceAll("[-+\"\'^[\\\\p{C}]\\\\]*", "").strip() + "\" }";
           JsonNode jsonNode = objectMapper.readTree(json);
           jsonNodeArray.add(jsonNode);

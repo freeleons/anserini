@@ -44,6 +44,7 @@ import io.anserini.search.similarity.TaggedSimilarity;
 import io.anserini.search.topicreader.BackgroundLinkingTopicReader;
 import io.anserini.search.topicreader.TopicReader;
 import io.anserini.search.topicreader.Topics;
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -914,7 +915,7 @@ public final class SearchCollection implements Closeable {
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
               line = line.trim();
               String[] arr = line.split("\\t");
               out.print(results.get(Integer.parseInt(arr[0])));

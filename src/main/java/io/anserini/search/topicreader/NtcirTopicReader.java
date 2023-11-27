@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -52,7 +53,7 @@ public class NtcirTopicReader extends TopicReader<Integer> {
     String description = "";
     String line;
 
-    while ((line = bRdr.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
       line = line.trim();
       if (line.startsWith("<qid")) {
         number = line.substring(5, line.length() - 6).trim();

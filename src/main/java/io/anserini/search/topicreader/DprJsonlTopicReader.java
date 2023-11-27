@@ -18,6 +18,7 @@
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class DprJsonlTopicReader extends TopicReader<Integer> {
         String line;
         Integer topicID = 0;
         ObjectMapper mapper = new ObjectMapper();
-        while ((line = reader.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
             line = line.trim();
             JsonNode lineNode = mapper.readerFor(JsonNode.class).readTree(line);
             Map<String, String> fields = new HashMap<>();

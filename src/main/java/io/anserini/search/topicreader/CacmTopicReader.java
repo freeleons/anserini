@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -47,14 +48,14 @@ public class CacmTopicReader extends TopicReader<Integer> {
     try {
       boolean found = false;
       String line;
-      while ((line=bRdr.readLine()) != null) {
+      while ((line=BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
         line = line.trim();
         if (line.startsWith(DOC)) {
           found = true;
           Map<String,String> fields = new HashMap<>();
           String qid = "";
           // continue to read DOCNO
-          while ((line = bRdr.readLine()) != null) {
+          while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
             if (line.startsWith(DOCNO)) {
               Matcher m = QUERY_ID_PATTERN.matcher(line);
               if (!m.find()) {
@@ -65,7 +66,7 @@ public class CacmTopicReader extends TopicReader<Integer> {
             }
           }
           StringBuilder sb = new StringBuilder();
-          while ((line = bRdr.readLine()) != null) {
+          while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
             if (line.startsWith(TERMINATING_DOC)) {
               fields.put("title", sb.toString());
               map.put(Integer.valueOf(qid), fields);

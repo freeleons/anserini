@@ -21,6 +21,7 @@ import io.anserini.ltr.DocumentFieldContext;
 import io.anserini.ltr.FeatureExtractor;
 import io.anserini.ltr.QueryContext;
 import io.anserini.ltr.QueryFieldContext;
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.BufferedReader;
@@ -81,7 +82,7 @@ public class IbmModel1 implements FeatureExtractor {
     public ConcurrentHashMap<Integer, Pair<Integer, String>> loadVoc(String fileName) throws IOException {
         ConcurrentHashMap<Integer, Pair<Integer, String>> res = new ConcurrentHashMap<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         while (line != null) {
             String[] parts = line.split("\\s");
             int id = Integer.parseInt(parts[0]);
@@ -89,7 +90,7 @@ public class IbmModel1 implements FeatureExtractor {
             int freq = Integer.parseInt(parts[2]);
             assert !res.containsKey(id);
             res.put(id, Pair.of(freq, voc));
-            line = reader.readLine();
+            line = BoundedLineReader.readLine(reader, 5_000_000);
         }
         reader.close();
         return res;

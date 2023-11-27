@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -61,7 +62,7 @@ public class MicroblogTopicReader extends TopicReader<Integer> {
     String number = "";
     Matcher m;
     String line;
-    while ((line = bRdr.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
       line = line.trim();
       if (line.startsWith("<num>") && line.endsWith("</num>")) {
         m = NUM_PATTERN.matcher(line);

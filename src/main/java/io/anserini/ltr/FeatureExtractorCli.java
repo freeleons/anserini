@@ -33,6 +33,7 @@ import io.anserini.ltr.feature.TpDist;
 import io.anserini.ltr.feature.UniqueTermCount;
 import io.anserini.ltr.feature.UnorderedQueryPairs;
 import io.anserini.ltr.feature.UnorderedSequentialPairs;
+import io.github.pixee.security.BoundedLineReader;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
@@ -221,7 +222,7 @@ public class FeatureExtractorCli {
       time[i] = 0;
     }
     long executionStart = System.nanoTime();
-    while ((line = reader.readLine()) != null && offset < 10000) {
+    while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null && offset < 10000) {
       lineNum++;
       // if(lineNum<=760) continue;
       qids.add(utils.debugExtract(line));

@@ -22,6 +22,7 @@ import com.twitter.twittertext.TwitterTextParser;
 import io.anserini.collection.TweetCollection;
 import io.anserini.index.Constants;
 import io.anserini.index.IndexCollection;
+import io.github.pixee.security.BoundedLineReader;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -92,7 +93,7 @@ public class TweetGenerator implements LuceneDocumentGenerator<TweetCollection.D
       BufferedReader br = new BufferedReader(new InputStreamReader(new CBZip2InputStream(fin)));
 
       String s;
-      while ((s = br.readLine()) != null) {
+      while ((s = BoundedLineReader.readLine(br, 5_000_000)) != null) {
         if (s.contains("\t")) {
           deletes.add(Long.parseLong(s.split("\t")[0]));
         } else {
