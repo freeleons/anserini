@@ -16,6 +16,8 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -236,7 +238,7 @@ public abstract class TopicReader<K> {
     System.out.println("Downloading topics from cloud " + topicURL.toString());
     File topicFile = new File(getCacheDir(), topicPath.getFileName().toString());
     try{
-      FileUtils.copyURLToFile(new URL(topicURL), topicFile);
+      FileUtils.copyURLToFile(Urls.create(topicURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), topicFile);
     }catch (Exception e){
       System.out.println("Error downloading topics from cloud " + topicURL.toString());
       throw e;
