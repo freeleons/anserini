@@ -1917,7 +1917,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(NITF_TAG)) {
+        if (NITF_TAG.equals(name)) {
           handleNITFNode(child, ldcDocument);
         }
       }
@@ -1930,9 +1930,9 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(HEAD_TAG)) {
+        if (HEAD_TAG.equals(name)) {
           handleHeadNode(child, ldcDocument);
-        } else if (name.equals(BODY_TAG)) {
+        } else if (BODY_TAG.equals(name)) {
           handleBodyNode(child, ldcDocument);
         }
       }
@@ -1943,11 +1943,11 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(BODY_HEAD_TAG)) {
+        if (BODY_HEAD_TAG.equals(name)) {
           handleBodyHead(child, ldcDocument);
-        } else if (name.equals(BODY_CONTENT_TAG)) {
+        } else if (BODY_CONTENT_TAG.equals(name)) {
           handleBodyContent(child, ldcDocument);
-        } else if (name.equals(BODY_END_TAG)) {
+        } else if (BODY_END_TAG.equals(name)) {
           handleBodyEnd(child, ldcDocument);
         }
       }
@@ -1958,13 +1958,13 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(DATELINE_TAG)) {
+        if (DATELINE_TAG.equals(name)) {
           handleDatelineNode(ldcDocument, child);
-        } else if (name.equals(ABSTRACT_TAG)) {
+        } else if (ABSTRACT_TAG.equals(name)) {
           handleAbstractNode(child, ldcDocument);
-        } else if (name.equals(BYLINE_TAG)) {
+        } else if (BYLINE_TAG.equals(name)) {
           handleBylineNode(child, ldcDocument);
-        } else if (name.equals(HEDLINE_TAG)) {
+        } else if (HEDLINE_TAG.equals(name)) {
           handleHeadlineNode(child, ldcDocument);
         }
       }
@@ -1980,7 +1980,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(P_TAG)) {
+        if (P_TAG.equals(name)) {
           String abstractText = getAllText(child).trim();
           ldcDocument.setArticleAbstract(abstractText);
         }
@@ -1991,9 +1991,9 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       String classAttribute = getAttributeValue(node, CLASS_ATTRIBUTE);
       if (classAttribute != null) {
         String text = getAllText(node).trim();
-        if (classAttribute.equals(NORMALIZED_BYLINE_ATTRIBUTE)) {
+        if (NORMALIZED_BYLINE_ATTRIBUTE.equals(classAttribute)) {
           ldcDocument.setNormalizedByline(text);
-        } else if (classAttribute.equals(PRINT_BYLINE_ATTRIBUTE)) {
+        } else if (PRINT_BYLINE_ATTRIBUTE.equals(classAttribute)) {
           ldcDocument.setByline(text);
         }
       }
@@ -2005,13 +2005,13 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
         Node child = children.item(i);
         String name = child.getNodeName();
         String text = getAllText(child).trim();
-        if (name.equals(HL1_TAG)) {
+        if (HL1_TAG.equals(name)) {
           ldcDocument.setHeadline(text);
-        } else if (name.equals(HL2_TAG)) {
+        } else if (HL2_TAG.equals(name)) {
           String classAttribute = getAttributeValue(child,
               CLASS_ATTRIBUTE);
           if (classAttribute != null
-              && classAttribute.equals(ONLINE_HEADLINE_ATTRIBUTE)) {
+              && ONLINE_HEADLINE_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.setOnlineHeadline(text);
           }
         }
@@ -2023,7 +2023,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(BLOCK_TAG)) {
+        if (BLOCK_TAG.equals(name)) {
           handleBlockNode(child, ldcDocument);
         }
       }
@@ -2032,13 +2032,13 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
     private void handleBlockNode(Node node, RawDocument ldcDocument) {
       String classAttribute = getAttributeValue(node, CLASS_ATTRIBUTE);
       if (classAttribute != null) {
-        if (classAttribute.equals(ONLINE_LEAD_PARAGRAPH_ATTRIBUTE)) {
+        if (ONLINE_LEAD_PARAGRAPH_ATTRIBUTE.equals(classAttribute)) {
           ldcDocument.setOnlineLeadParagraph(parseBlock(node));
-        } else if (classAttribute.equals(LEAD_PARAGRAPH_ATTRIBUTE)) {
+        } else if (LEAD_PARAGRAPH_ATTRIBUTE.equals(classAttribute)) {
           ldcDocument.setLeadParagraph(parseBlock(node));
-        } else if (classAttribute.equals(FULL_TEXT_ATTRIBUTE)) {
+        } else if (FULL_TEXT_ATTRIBUTE.equals(classAttribute)) {
           ldcDocument.setBody(parseBlock(node));
-        } else if (classAttribute.equals(CORRECTION_TEXT)) {
+        } else if (CORRECTION_TEXT.equals(classAttribute)) {
           ldcDocument.setCorrectionText(parseBlock(node));
         }
       }
@@ -2049,11 +2049,11 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(TAGLINE_TAG)) {
+        if (TAGLINE_TAG.equals(name)) {
           String classAttribute = getAttributeValue(child,
               CLASS_ATTRIBUTE);
           if (classAttribute != null
-              && classAttribute.equals(AUTHOR_INFO_ATTRIBUTE)) {
+              && AUTHOR_INFO_ATTRIBUTE.equals(classAttribute)) {
             String text = getAllText(child);
             ldcDocument.setAuthorBiography(text);
           }
@@ -2066,11 +2066,11 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(META_TAG)) {
+        if (META_TAG.equals(name)) {
           handleMetaNode(child, ldcDocument);
-        } else if (name.equals(DOCDATA_TAG)) {
+        } else if (DOCDATA_TAG.equals(name)) {
           handleDocdataNode(child, ldcDocument);
-        } else if (name.equals(PUBDATA_TAG)) {
+        } else if (PUBDATA_TAG.equals(name)) {
           handlePubdata(child, ldcDocument);
         }
       }
@@ -2081,12 +2081,12 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(DOC_ID_TAG)) {
+        if (DOC_ID_TAG.equals(name)) {
           handleDocumentIdNode(ldcDocument, child);
-        } else if (name.equals(SERIES_TAG)) {
+        } else if (SERIES_TAG.equals(name)) {
           ldcDocument
               .setKicker(getAttributeValue(child, SERIES_NAME_TAG));
-        } else if (name.equals(IDENTIFIED_CONTENT_TAG)) {
+        } else if (IDENTIFIED_CONTENT_TAG.equals(name)) {
           handleIdentifiedContent(child, ldcDocument);
         }
       }
@@ -2147,53 +2147,53 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
         String value = getAllText(child).trim();
         String classAttribute = getAttributeValue(child, CLASS_ATTRIBUTE);
 
-        if (name.equals(CLASSIFIER_TAG)) {
+        if (CLASSIFIER_TAG.equals(name)) {
           String typeAttribute = getAttributeValue(child, TYPE_ATTRIBUTE);
-          if (classAttribute.equals(INDEXING_SERVICE_ATTRIBUTE)) {
-            if (typeAttribute.equals(DESCRIPTOR_ATTRIBUTE)) {
+          if (INDEXING_SERVICE_ATTRIBUTE.equals(classAttribute)) {
+            if (DESCRIPTOR_ATTRIBUTE.equals(typeAttribute)) {
               ldcDocument.getDescriptors().add(value);
-            } else if (typeAttribute
-                .equals(BIOGRAPHICAL_CATEGORIES_ATTRIBUTE)) {
+            } else if (BIOGRAPHICAL_CATEGORIES_ATTRIBUTE
+                .equals(typeAttribute)) {
               ldcDocument.getBiographicalCategories().add(value);
-            } else if (typeAttribute.equals(NAMES_ATTRIBUTE)) {
+            } else if (NAMES_ATTRIBUTE.equals(typeAttribute)) {
               ldcDocument.getNames().add(value);
             }
-          } else if (classAttribute.equals(ONLINE_PRODUCER_ATTRIBUTE)) {
-            if (typeAttribute.equals(DESCRIPTOR_ATTRIBUTE)) {
+          } else if (ONLINE_PRODUCER_ATTRIBUTE.equals(classAttribute)) {
+            if (DESCRIPTOR_ATTRIBUTE.equals(typeAttribute)) {
               ldcDocument.getOnlineDescriptors().add(value);
-            } else if (typeAttribute
-                .equals(GENERAL_DESCRIPTOR_ATTRIBUTE)) {
+            } else if (GENERAL_DESCRIPTOR_ATTRIBUTE
+                .equals(typeAttribute)) {
               ldcDocument.getGeneralOnlineDescriptors().add(value);
-            } else if (typeAttribute
-                .equals(TAXONOMIC_CLASSIFIER_ATTRIBUTE)) {
+            } else if (TAXONOMIC_CLASSIFIER_ATTRIBUTE
+                .equals(typeAttribute)) {
               ldcDocument.getTaxonomicClassifiers().add(value);
-            } else if (typeAttribute
-                .equals(TYPES_OF_MATERIAL_ATTRIBUTE)) {
+            } else if (TYPES_OF_MATERIAL_ATTRIBUTE
+                .equals(typeAttribute)) {
               ldcDocument.getTypesOfMaterial().add(value);
             }
           }
-        } else if (name.equals(LOCATION_TAG)) {
-          if (classAttribute.equals(INDEXING_SERVICE_ATTRIBUTE)) {
+        } else if (LOCATION_TAG.equals(name)) {
+          if (INDEXING_SERVICE_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getLocations().add(value);
-          } else if (classAttribute.equals(ONLINE_PRODUCER_ATTRIBUTE)) {
+          } else if (ONLINE_PRODUCER_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getOnlineLocations().add(value);
           }
-        } else if (name.equals(OBJECT_TITLE_TAG)) {
-          if (classAttribute.equals(INDEXING_SERVICE_ATTRIBUTE)) {
+        } else if (OBJECT_TITLE_TAG.equals(name)) {
+          if (INDEXING_SERVICE_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getTitles().add(value);
-          } else if (classAttribute.equals(ONLINE_PRODUCER_ATTRIBUTE)) {
+          } else if (ONLINE_PRODUCER_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getOnlineTitles().add(value);
           }
-        } else if (name.equals(ORGANIZATION_TAG)) {
-          if (classAttribute.equals(INDEXING_SERVICE_ATTRIBUTE)) {
+        } else if (ORGANIZATION_TAG.equals(name)) {
+          if (INDEXING_SERVICE_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getOrganizations().add(value);
-          } else if (classAttribute.equals(ONLINE_PRODUCER_ATTRIBUTE)) {
+          } else if (ONLINE_PRODUCER_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getOnlineOrganizations().add(value);
           }
-        } else if (name.equals(PERSON_TAG)) {
-          if (classAttribute.equals(INDEXING_SERVICE_ATTRIBUTE)) {
+        } else if (PERSON_TAG.equals(name)) {
+          if (INDEXING_SERVICE_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getPeople().add(value);
-          } else if (classAttribute.equals(ONLINE_PRODUCER_ATTRIBUTE)) {
+          } else if (ONLINE_PRODUCER_ATTRIBUTE.equals(classAttribute)) {
             ldcDocument.getOnlinePeople().add(value);
           }
         }
@@ -2226,37 +2226,37 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       String content = attributes.getNamedItem(CONTENT_ATTRIBUTE)
           .getNodeValue();
       try {
-        if (name.equals(DSK_ATTRIBUTE)) {
+        if (DSK_ATTRIBUTE.equals(name)) {
           ldcDocument.setNewsDesk(content);
-        } else if (name.equals(ALTERNATE_URL_ATTRIBUTE)) {
+        } else if (ALTERNATE_URL_ATTRIBUTE.equals(name)) {
           ldcDocument.setAlternateURL((new URL(content)));
-        } else if (name.equals(ONLINE_SECTIONS_ATTRIBUTE)) {
+        } else if (ONLINE_SECTIONS_ATTRIBUTE.equals(name)) {
           ldcDocument.setOnlineSection(content);
-        } else if (name.equals(PRINT_PAGE_NUMBER_ATTRIBUTE)) {
+        } else if (PRINT_PAGE_NUMBER_ATTRIBUTE.equals(name)) {
           ldcDocument.setPage(Integer.parseInt(content));
-        } else if (name.equals(PRINT_SECTION_ATTRIBUTE)) {
+        } else if (PRINT_SECTION_ATTRIBUTE.equals(name)) {
           ldcDocument.setSection(content);
-        } else if (name.equals(SLUG_ATTRIBUTE)) {
+        } else if (SLUG_ATTRIBUTE.equals(name)) {
           ldcDocument.setSlug(content);
-        } else if (name.equals(PRINT_COLUMN_ATTRIBUTE)) {
+        } else if (PRINT_COLUMN_ATTRIBUTE.equals(name)) {
           ldcDocument.setColumnNumber(Integer.parseInt(content.trim()));
-        } else if (name.equals(BANNER_ATTRIBUTE)) {
+        } else if (BANNER_ATTRIBUTE.equals(name)) {
           ldcDocument.setBanner(content);
-        } else if (name.equals(CORRECTION_DATE_ATTRIBUTE)) {
+        } else if (CORRECTION_DATE_ATTRIBUTE.equals(name)) {
           ldcDocument.setCorrectionDate(format.parse(content));
-        } else if (name.equals(FEATURE_PAGE_ATTRIBUTE)) {
+        } else if (FEATURE_PAGE_ATTRIBUTE.equals(name)) {
           ldcDocument.setFeaturePage(content);
-        } else if (name.equals(COLUMN_NAME_ATTRIBUTE)) {
+        } else if (COLUMN_NAME_ATTRIBUTE.equals(name)) {
           ldcDocument.setColumnName(content);
-        } else if (name.equals(SERIES_NAME_ATTRIBUTE)) {
+        } else if (SERIES_NAME_ATTRIBUTE.equals(name)) {
           ldcDocument.setSeriesName(content);
-        } else if (name.equals(PUBLICATION_DAY_OF_MONTH_ATTRIBUTE)) {
+        } else if (PUBLICATION_DAY_OF_MONTH_ATTRIBUTE.equals(name)) {
           ldcDocument.setPublicationDayOfMonth(Integer.parseInt(content));
-        } else if (name.equals(PUBLICATION_MONTH_ATTRIBUTE)) {
+        } else if (PUBLICATION_MONTH_ATTRIBUTE.equals(name)) {
           ldcDocument.setPublicationMonth(Integer.parseInt(content));
-        } else if (name.equals(PUBLICATION_YEAR_ATTRIBUTE)) {
+        } else if (PUBLICATION_YEAR_ATTRIBUTE.equals(name)) {
           ldcDocument.setPublicationYear(Integer.parseInt(content));
-        } else if (name.equals(PULICATION_DAY_OF_WEEK_ATTRIBUTE)) {
+        } else if (PULICATION_DAY_OF_WEEK_ATTRIBUTE.equals(name)) {
           ldcDocument.setDayOfWeek(content);
         }
 
@@ -2428,7 +2428,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       for (int i = 0; i < children.getLength(); i++) {
         Node child = children.item(i);
         String name = child.getNodeName();
-        if (name.equals(P_TAG)) {
+        if (P_TAG.equals(name)) {
           sb.append(getAllText(child).trim() + "\n");
         }
       }

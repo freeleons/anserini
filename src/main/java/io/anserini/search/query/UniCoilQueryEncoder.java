@@ -72,9 +72,9 @@ public class UniCoilQueryEncoder extends QueryEncoder {
     for (int i = 0; i < tokens.size(); ++i) {
       String token = tokens.get(i);
       float tokenWeight = computedWeights[i];
-      if (token.equals("[CLS]")) {
+      if ("[CLS]".equals(token)) {
         continue;
-      } else if (token.equals("[PAD]")) {
+      } else if ("[PAD]".equals(token)) {
         break;
       } else if (tokenWeightMap.containsKey(token)) {
         Float accumulatedWeight = tokenWeightMap.get(token);

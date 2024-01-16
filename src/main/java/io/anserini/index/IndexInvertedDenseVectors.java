@@ -413,9 +413,9 @@ public final class IndexInvertedDenseVectors {
     int numThreads = args.threads;
     IndexWriter writer = null;
     Analyzer vectorAnalyzer;
-    if (args.encoding.equalsIgnoreCase(FW)) {
+    if (FW.equalsIgnoreCase(args.encoding)) {
       vectorAnalyzer = new FakeWordsEncoderAnalyzer(args.q);
-    } else if (args.encoding.equalsIgnoreCase(LEXLSH)) {
+    } else if (LEXLSH.equalsIgnoreCase(args.encoding)) {
       vectorAnalyzer = new LexicalLshAnalyzer(args.decimals, args.ngrams, args.hashCount,
                                               args.bucketCount, args.hashSetSize);
     } else {

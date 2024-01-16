@@ -133,7 +133,7 @@ public class SimpleIndexer {
         LOG.info("Using language-specific analyzer");
         LOG.info("Language: " + args.language);
         return AnalyzerMap.getLanguageSpecificAnalyzer(args.language);
-      } else if (args.pretokenized || args.language.equals("sw")) {
+      } else if (args.pretokenized || "sw".equals(args.language)) {
         LOG.info("Using WhitespaceAnalyzer");
         return new WhitespaceAnalyzer();
       } else {

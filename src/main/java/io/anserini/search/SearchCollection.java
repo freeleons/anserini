@@ -672,7 +672,7 @@ public final class SearchCollection implements Closeable {
         final Analyzer languageSpecificAnalyzer;
         if (AnalyzerMap.analyzerMap.containsKey(args.language)) {
           languageSpecificAnalyzer = AnalyzerMap.getLanguageSpecificAnalyzer(args.language);
-        } else if (args.language.equals("en")) {
+        } else if ("en".equals(args.language)) {
           languageSpecificAnalyzer = DefaultEnglishAnalyzer.fromArguments(args.stemmer, args.keepstop, args.stopwords);
         } else {
           languageSpecificAnalyzer = new WhitespaceAnalyzer();
@@ -686,7 +686,7 @@ public final class SearchCollection implements Closeable {
         LOG.info("Using language-specific analyzer");
         LOG.info("Language: " + args.language);
         return AnalyzerMap.getLanguageSpecificAnalyzer(args.language);
-      } else if (args.language.equals("sw") || args.language.equals("yo")) {
+      } else if ("sw".equals(args.language) || "yo".equals(args.language)) {
         return new WhitespaceAnalyzer();
       } else if (args.pretokenized) {
         return new WhitespaceAnalyzer();
@@ -896,10 +896,10 @@ public final class SearchCollection implements Closeable {
         // for example, generate Anserini leaderboard runs), we add an ugly hack here to dump the results in the order
         // of the qids in the query files.
         boolean isMSMARCOv1_passage = topics.firstKey().equals(2) &&
-            topics.get(2).get("title").equals("Androgen receptor define") &&
+            "Androgen receptor define".equals(topics.get(2).get("title")) &&
             topics.keySet().size() == 6980;
         boolean isMAMARCOv1_doc = topics.firstKey().equals(2) &&
-            topics.get(2).get("title").equals("androgen receptor define") &&
+            "androgen receptor define".equals(topics.get(2).get("title")) &&
             topics.keySet().size() == 5193;
 
         if (isMSMARCOv1_passage || isMAMARCOv1_doc) {

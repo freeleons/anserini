@@ -119,9 +119,9 @@ public class EvaluateInvertedDenseVectors {
       return;
     }
     Analyzer vectorAnalyzer;
-    if (indexArgs.encoding.equalsIgnoreCase(FW)) {
+    if (FW.equalsIgnoreCase(indexArgs.encoding)) {
       vectorAnalyzer = new FakeWordsEncoderAnalyzer(indexArgs.q);
-    } else if (indexArgs.encoding.equalsIgnoreCase(LEXLSH)) {
+    } else if (LEXLSH.equalsIgnoreCase(indexArgs.encoding)) {
       vectorAnalyzer = new LexicalLshAnalyzer(indexArgs.decimals, indexArgs.ngrams, indexArgs.hashCount,
           indexArgs.bucketCount, indexArgs.hashSetSize);
     } else {
@@ -145,7 +145,7 @@ public class EvaluateInvertedDenseVectors {
     Directory d = FSDirectory.open(indexDir);
     DirectoryReader reader = DirectoryReader.open(d);
     IndexSearcher searcher = new IndexSearcher(reader);
-    if (indexArgs.encoding.equalsIgnoreCase(FW)) {
+    if (FW.equalsIgnoreCase(indexArgs.encoding)) {
       searcher.setSimilarity(new ClassicSimilarity());
     }
 

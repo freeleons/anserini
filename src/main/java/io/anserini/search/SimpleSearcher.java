@@ -194,55 +194,55 @@ public class SimpleSearcher implements Closeable {
    * @param language language
    */
   public void set_language(String language) {
-    if (language.equals("ar")) {
+    if ("ar".equals(language)) {
       this.analyzer = new ArabicAnalyzer();
-    } else if (language.equals("bn")) {
+    } else if ("bn".equals(language)) {
       this.analyzer = new BengaliAnalyzer();
-    } else if (language.equals("de")) {
+    } else if ("de".equals(language)) {
       this.analyzer = new GermanAnalyzer();
-    } else if (language.equals("da")) {
+    } else if ("da".equals(language)) {
       this.analyzer = new DanishAnalyzer();
-    } else if (language.equals("es")) {
+    } else if ("es".equals(language)) {
       this.analyzer = new SpanishAnalyzer();
-    } else if (language.equals("fa")) {
+    } else if ("fa".equals(language)) {
       this.analyzer = new PersianAnalyzer();
-    } else if (language.equals("fi")) {
+    } else if ("fi".equals(language)) {
       this.analyzer = new FinnishAnalyzer();
-    } else if (language.equals("fr")) {
+    } else if ("fr".equals(language)) {
       this.analyzer = new FrenchAnalyzer();
-    } else if (language.equals("hi")) {
+    } else if ("hi".equals(language)) {
       this.analyzer = new HindiAnalyzer();
-    } else if (language.equals("hu")) {
+    } else if ("hu".equals(language)) {
       this.analyzer = new HungarianAnalyzer();
-    } else if (language.equals("id")) {
+    } else if ("id".equals(language)) {
       this.analyzer = new IndonesianAnalyzer();
-    } else if (language.equals("it")) {
+    } else if ("it".equals(language)) {
       this.analyzer = new ItalianAnalyzer();
-    } else if (language.equals("ja")) {
+    } else if ("ja".equals(language)) {
       this.analyzer = new JapaneseAnalyzer();
-    } else if (language.equals("nl")) {
+    } else if ("nl".equals(language)) {
       this.analyzer = new DutchAnalyzer();
-    } else if (language.equals("no")) {
+    } else if ("no".equals(language)) {
       this.analyzer = new NorwegianAnalyzer();
-    } else if (language.equals("pl")) {
+    } else if ("pl".equals(language)) {
       this.analyzer = new MorfologikAnalyzer();
-    } else if (language.equals("pt")) {
+    } else if ("pt".equals(language)) {
       this.analyzer = new PortugueseAnalyzer();
-    } else if (language.equals("ru")) {
+    } else if ("ru".equals(language)) {
       this.analyzer = new RussianAnalyzer();
-    } else if (language.equals("sv")) {
+    } else if ("sv".equals(language)) {
       this.analyzer = new SwedishAnalyzer();
-    } else if (language.equals("te")) {
+    } else if ("te".equals(language)) {
       this.analyzer = new TeluguAnalyzer();
-    } else if (language.equals("th")) {
+    } else if ("th".equals(language)) {
       this.analyzer = new ThaiAnalyzer();
-    } else if (language.equals("tr")) {
+    } else if ("tr".equals(language)) {
       this.analyzer = new TurkishAnalyzer();
-    } else if (language.equals("uk")) {
+    } else if ("uk".equals(language)) {
       this.analyzer = new UkrainianMorfologikAnalyzer();
-    } else if (language.equals("zh") || language.equals("ko")) {
+    } else if ("zh".equals(language) || "ko".equals(language)) {
       this.analyzer = new CJKAnalyzer();
-    } else if (language.equals("sw") || language.equals("te")) {
+    } else if ("sw".equals(language) || "te".equals(language)) {
       this.analyzer = new WhitespaceAnalyzer();
       // For Mr.TyDi: sw and te do not have custom Lucene analyzers, so just use whitespace analyzer.
     }
