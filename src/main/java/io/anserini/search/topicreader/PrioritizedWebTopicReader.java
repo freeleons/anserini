@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
@@ -37,7 +38,7 @@ public class PrioritizedWebTopicReader extends TopicReader<Integer> {
     SortedMap<Integer, Map<String, String>> ret =  new TreeMap<>();
 
     String line;
-    while ((line = bRdr.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
       Map<String,String> fields = new HashMap<>();
       fields.put("title", StringUtils.substringAfterLast(line.trim(), ":"));
       fields.put("priority", StringUtils.substringBetween(line.trim(), ":"));

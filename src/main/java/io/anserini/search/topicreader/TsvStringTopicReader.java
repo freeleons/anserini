@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -47,7 +48,7 @@ public class TsvStringTopicReader extends TopicReader<String> {
     SortedMap<String, Map<String, String>> map = new TreeMap<>();
 
     String line;
-    while ((line = reader.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
       line = line.trim();
       String[] arr = line.split("\\t");
 

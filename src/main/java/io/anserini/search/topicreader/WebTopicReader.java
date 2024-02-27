@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -51,7 +52,7 @@ public class WebTopicReader extends TopicReader<Integer> {
     SortedMap<Integer, Map<String, String>> map = new TreeMap<>();
 
     String line;
-    while ((line = bRdr.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
       line = line.trim();
       String[] arr = line.split(":");
 

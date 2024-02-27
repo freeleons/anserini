@@ -23,6 +23,7 @@ import io.anserini.analysis.AnalyzerUtils;
 import io.anserini.collection.WashingtonPostCollection;
 import io.anserini.index.Constants;
 import io.anserini.index.IndexReaderUtils;
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.index.IndexReader;
@@ -69,7 +70,7 @@ public class BackgroundLinkingTopicReader extends TopicReader<Integer> {
     String number = "";
     Matcher m;
     String line;
-    while ((line = bRdr.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
       line = line.trim();
       if (line.startsWith("<num>") && line.endsWith("</num>")) {
         m = NUM_PATTERN.matcher(line);

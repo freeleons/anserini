@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -38,7 +39,7 @@ public class JsonIntVectorTopicReader extends TopicReader<Integer> {
     SortedMap<Integer, Map<String, String>> map = new TreeMap<>();
     String line;
     ObjectMapper mapper = new ObjectMapper();
-    while ((line = reader.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
       line = line.trim();
       JsonNode lineNode = mapper.readerFor(JsonNode.class).readTree(line);
       Integer topicID = lineNode.get("qid").asInt();

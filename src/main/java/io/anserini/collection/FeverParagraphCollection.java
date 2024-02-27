@@ -18,6 +18,7 @@ package io.anserini.collection;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -99,7 +100,7 @@ public class FeverParagraphCollection extends DocumentCollection<FeverParagraphC
       List<String> rawLines = new ArrayList<>();
       String line;
       try {
-        while ((line = bufferedReader.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bufferedReader, 5_000_000)) != null) {
           String[] arrOfLine = line.split("\t", 3);
           rawLines.add(line);
           if (arrOfLine.length >= 2) {

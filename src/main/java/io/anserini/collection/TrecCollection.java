@@ -16,6 +16,7 @@
 
 package io.anserini.collection;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.compress.compressors.z.ZCompressorInputStream;
 
 import java.io.BufferedInputStream;
@@ -133,7 +134,7 @@ public class TrecCollection extends DocumentCollection<TrecCollection.Document> 
       int inTag = -1;
 
       String line;
-      while ((line=reader.readLine()) != null) {
+      while ((line=BoundedLineReader.readLine(reader, 5_000_000)) != null) {
         line = line.trim();
 
         // Also handle the variant case where docid is an attributed of the <DOC> tag, e.g., <DOC id="abc">
@@ -147,14 +148,14 @@ public class TrecCollection extends DocumentCollection<TrecCollection.Document> 
             builder.append(Document.DOCNO).append(matcher.group(1)).append(Document.TERMINATING_DOCNO);
           } else {
             // Continue to read DOCNO as normal.
-            while ((line = reader.readLine()) != null) {
+            while ((line = BoundedLineReader.readLine(reader, 5_000_000)) != null) {
               if (line.startsWith(Document.DOCNO)) {
                 builder.append(line).append('\n');
                 break;
               }
             }
             while (builder.indexOf(Document.TERMINATING_DOCNO) == -1) {
-              line = reader.readLine();
+              line = BoundedLineReader.readLine(reader, 5_000_000);
               if (line == null) break;
               builder.append(line).append('\n');
             }

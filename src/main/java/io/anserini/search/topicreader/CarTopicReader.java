@@ -16,6 +16,7 @@
 
 package io.anserini.search.topicreader;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -40,7 +41,7 @@ public class CarTopicReader extends TopicReader<String> {
     SortedMap<String, Map<String, String>> map = new TreeMap<>();
 
     String line;
-    while ((line = bRdr.readLine()) != null) {
+    while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
       Map<String,String> fields = new HashMap<>();
       line = line.trim();
 

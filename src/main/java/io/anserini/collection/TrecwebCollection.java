@@ -16,6 +16,7 @@
 
 package io.anserini.collection;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -74,7 +75,7 @@ public class TrecwebCollection extends DocumentCollection<TrecwebCollection.Docu
       boolean found = false;
 
       String line;
-      while ((line=reader.readLine()) != null) {
+      while ((line=BoundedLineReader.readLine(reader, 5_000_000)) != null) {
         line = line.trim();
 
         if (line.startsWith(Document.DOC)) {

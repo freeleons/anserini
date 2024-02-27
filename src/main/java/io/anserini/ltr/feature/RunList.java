@@ -20,6 +20,7 @@ import io.anserini.ltr.DocumentContext;
 import io.anserini.ltr.FeatureExtractor;
 import io.anserini.ltr.QueryContext;
 import io.anserini.ltr.QueryFieldContext;
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.BufferedReader;
@@ -35,7 +36,7 @@ public class RunList implements FeatureExtractor {
     public RunList(String file, String tag) throws IOException {
         this.tag = tag;
         BufferedReader reader = new BufferedReader(new FileReader(file));
-        String line = reader.readLine();
+        String line = BoundedLineReader.readLine(reader, 5_000_000);
         while(line != null) {
             String[] elements = line.split("\\s");
             String qid = elements[0];
@@ -43,7 +44,7 @@ public class RunList implements FeatureExtractor {
             int rank = Integer.parseInt(elements[3]);
             float score = Float.parseFloat(elements[4]);
             lookup.put(Pair.of(qid,docid),Pair.of(rank,score));
-            line = reader.readLine();
+            line = BoundedLineReader.readLine(reader, 5_000_000);
         }
         reader.close();
     }

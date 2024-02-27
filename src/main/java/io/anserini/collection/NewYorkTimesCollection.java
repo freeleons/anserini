@@ -16,6 +16,7 @@
 
 package io.anserini.collection;
 
+import io.github.pixee.security.BoundedLineReader;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
@@ -2287,7 +2288,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       StringBuffer sb = new StringBuffer();
       try {
         String line;
-        while ((line = bRdr.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(bRdr, 5_000_000)) != null) {
           sb.append(line + "\n");
         }
         String xmlData = sb.toString();
@@ -2318,7 +2319,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
         BufferedReader in = new BufferedReader(new InputStreamReader(
             new FileInputStream(file), "UTF8"));
         String line = null;
-        while ((line = in.readLine()) != null) {
+        while ((line = BoundedLineReader.readLine(in, 5_000_000)) != null) {
           sb.append(line + "\n");
         }
         String xmlData = sb.toString();

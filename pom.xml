@@ -28,7 +28,8 @@
   <properties>
     <lucene.version>9.5.0</lucene.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+  <versions.java-security-toolkit>1.1.2</versions.java-security-toolkit>
+ </properties>
 
   <scm>
     <connection>scm:git:git@github.com:castorini/Anserini.git</connection>
@@ -485,5 +486,18 @@
       <artifactId>api</artifactId>
       <version>0.21.0</version>
     </dependency>
+  <dependency>
+   <groupId>io.github.pixee</groupId>
+   <artifactId>java-security-toolkit</artifactId>
+  </dependency>
+ </dependencies>
+ <dependencyManagement>
+  <dependencies>
+   <dependency>
+    <groupId>io.github.pixee</groupId>
+    <artifactId>java-security-toolkit</artifactId>
+    <version>${versions.java-security-toolkit}</version>
+   </dependency>
   </dependencies>
+ </dependencyManagement>
 </project>
