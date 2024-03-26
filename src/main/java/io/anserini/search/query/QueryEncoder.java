@@ -4,6 +4,8 @@ import ai.djl.modality.nlp.DefaultVocabulary;
 import ai.djl.modality.nlp.Vocabulary;
 import ai.djl.modality.nlp.bert.BertFullTokenizer;
 import ai.onnxruntime.OrtException;
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -22,13 +24,13 @@ public abstract class QueryEncoder {
 
   static protected Path getModelPath(String modelName, String modelURL) throws IOException {
     File modelFile = new File(getCacheDir(), modelName);
-    FileUtils.copyURLToFile(new URL(modelURL), modelFile);
+    FileUtils.copyURLToFile(Urls.create(modelURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), modelFile);
     return modelFile.toPath();
   }
 
   static protected Path getVocabPath(String vocabName, String vocabURL) throws IOException {
     File vocabFile = new File(getCacheDir(), vocabName);
-    FileUtils.copyURLToFile(new URL(vocabURL), vocabFile);
+    FileUtils.copyURLToFile(Urls.create(vocabURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), vocabFile);
     return vocabFile.toPath();
   }
 

@@ -16,6 +16,8 @@
 
 package io.anserini.eval;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -188,7 +190,7 @@ public class RelevanceJudgments {
     System.out.println("Downloading qrels from cloud " + qrelsURL.toString());
     File qrelsFile = new File(getCacheDir(), qrelsPath.getFileName().toString());
     try {
-      FileUtils.copyURLToFile(new URL(qrelsURL), qrelsFile);
+      FileUtils.copyURLToFile(Urls.create(qrelsURL, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS), qrelsFile);
     } catch (Exception e) {
       System.out.println("Error downloading topics from cloud " + qrelsURL.toString());
       throw e;

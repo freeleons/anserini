@@ -16,6 +16,8 @@
 
 package io.anserini.collection;
 
+import io.github.pixee.security.HostValidator;
+import io.github.pixee.security.Urls;
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
@@ -2111,7 +2113,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
       String urlString = getAttributeValue(node, EX_REF_ATTRIBUTE);
       if (urlString != null) {
         try {
-          URL url = new URL(urlString);
+          URL url = Urls.create(urlString, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS);
           ldcDocument.setUrl(url);
         } catch (MalformedURLException e) {
           //e.printStackTrace();
@@ -2229,7 +2231,7 @@ public class NewYorkTimesCollection extends DocumentCollection<NewYorkTimesColle
         if (name.equals(DSK_ATTRIBUTE)) {
           ldcDocument.setNewsDesk(content);
         } else if (name.equals(ALTERNATE_URL_ATTRIBUTE)) {
-          ldcDocument.setAlternateURL((new URL(content)));
+          ldcDocument.setAlternateURL((Urls.create(content, Urls.HTTP_PROTOCOLS, HostValidator.DENY_COMMON_INFRASTRUCTURE_TARGETS)));
         } else if (name.equals(ONLINE_SECTIONS_ATTRIBUTE)) {
           ldcDocument.setOnlineSection(content);
         } else if (name.equals(PRINT_PAGE_NUMBER_ATTRIBUTE)) {
