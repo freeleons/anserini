@@ -68,7 +68,7 @@ public class DumpAnalyzedQueries {
         LOG.info("Using language-specific analyzer");
         LOG.info("Language: " + args.language);
         return AnalyzerMap.getLanguageSpecificAnalyzer(args.language);
-      } else if (args.language.equals("sw") || args.language.equals("te")) {
+      } else if ("sw".equals(args.language) || "te".equals(args.language)) {
         LOG.info("Using WhitespaceAnalyzer");
         return new WhitespaceAnalyzer();
       } else {

@@ -436,7 +436,7 @@ public final class IndexCollection {
 
   private Analyzer getAnalyzer() {
     try {
-      if (args.collectionClass.equals("TweetCollection")) {
+      if ("TweetCollection".equals(args.collectionClass)) {
         return new TweetAnalyzer(args.tweetStemming);
       } else if (args.useAutoCompositeAnalyzer) {
         LOG.info("Using AutoCompositeAnalyzer");
@@ -445,7 +445,7 @@ public final class IndexCollection {
         final Analyzer languageSpecificAnalyzer;
         if (AnalyzerMap.analyzerMap.containsKey(args.language)) {
           languageSpecificAnalyzer = AnalyzerMap.getLanguageSpecificAnalyzer(args.language);
-        } else if (args.language.equals("en")) {
+        } else if ("en".equals(args.language)) {
           languageSpecificAnalyzer = DefaultEnglishAnalyzer.fromArguments(args.stemmer, args.keepStopwords, args.stopwords);
         } else {
           languageSpecificAnalyzer = new WhitespaceAnalyzer();
@@ -459,7 +459,7 @@ public final class IndexCollection {
         LOG.info("Using language-specific analyzer");
         LOG.info("Language: " + args.language);
         return AnalyzerMap.getLanguageSpecificAnalyzer(args.language);
-      } else if (args.language.equals("sw") || args.language.equals("yo")) {
+      } else if ("sw".equals(args.language) || "yo".equals(args.language)) {
         return new WhitespaceAnalyzer();
       } else if (args.pretokenized) {
         return new WhitespaceAnalyzer();

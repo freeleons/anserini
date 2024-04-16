@@ -390,19 +390,19 @@ public abstract class WarcBaseDocument implements SourceDocument {
    */
   public void addHeaderMetadata(String key, String value) {
     // don't allow addition of known keys
-    if (key.equals("WARC-Type")) {
+    if ("WARC-Type".equals(key)) {
       return;
     }
-    if (key.equals("WARC-Date")) {
+    if ("WARC-Date".equals(key)) {
       return;
     }
-    if (key.equals("WARC-Record-ID")) {
+    if ("WARC-Record-ID".equals(key)) {
       return;
     }
-    if (key.equals("Content-Type")) {
+    if ("Content-Type".equals(key)) {
       return;
     }
-    if (key.equals("Content-Length")) {
+    if ("Content-Length".equals(key)) {
       return;
     }
 
@@ -452,13 +452,13 @@ public abstract class WarcBaseDocument implements SourceDocument {
       String thisValue = pieces[1].trim();
 
       // check for known keys
-      if (thisKey.equals("WARC-Type")) {
+      if ("WARC-Type".equals(thisKey)) {
         setWarcRecordType(thisValue);
-      } else if (thisKey.equals("WARC-Date")) {
+      } else if ("WARC-Date".equals(thisKey)) {
         setWarcDate(thisValue);
-      } else if (thisKey.equals("WARC-Record-ID")) {
+      } else if ("WARC-Record-ID".equals(thisKey)) {
         setWarcUUID(thisValue);
-      } else if (thisKey.equals("Content-Type")) {
+      } else if ("Content-Type".equals(thisKey)) {
         setWarcContentType(thisValue);
       } else {
         addHeaderMetadata(thisKey, thisValue);

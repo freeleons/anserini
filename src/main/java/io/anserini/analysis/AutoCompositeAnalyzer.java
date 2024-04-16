@@ -57,7 +57,7 @@ public class AutoCompositeAnalyzer {
 
     if (AnalyzerMap.analyzerMap.containsKey(language)) {
       languageSpecificAnalyzer = AnalyzerMap.getLanguageSpecificAnalyzer(language);
-    } else if (language.equals("en")) {
+    } else if ("en".equals(language)) {
       languageSpecificAnalyzer = DefaultEnglishAnalyzer.fromArguments("porter", false, null);
     } else {
       languageSpecificAnalyzer = new WhitespaceAnalyzer();
